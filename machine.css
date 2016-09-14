@@ -25,6 +25,11 @@ div[machines] > div[machine][end] {
   border-width:2px !important;
 }
 
+div[machines] > div[machine][start] {
+  border-width:2px !important;
+  border-color:blue;
+}
+
 div[machines] > div[machine] > div[left]{
   width: 16vw;
   height: 1vw;

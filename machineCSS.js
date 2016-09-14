@@ -1,8 +1,26 @@
 
-var input = "C to B on 1 and Y to B on 1 and B to C on 0 and K to C on 0 and C to K on 1 and K to B on 0 ";
+
+var input = "start at C and C to B on 1 and Y to B on 1 and B to C on 0 and K to C on 0 and C to K on 1 and K to B on 0 ";
 
 function machineParse(str, machineMap){
 	ptr = 0;
+	ctr = 0;
+  while(str.indexOf("start at ",ptr) != -1){
+    ctr++;
+    ptr = str.indexOf("start at ");
+    spaceafter = str.indexOf(" ",ptr+9);
+    if(spaceafter == -1){spaceafter = str.length};
+    val = str.substring(ptr+9,spaceafter);
+    if(!machineMap[val]){
+    	machineMap[val] = {};
+      machineMap[val].points = [];
+      machineMap[val].start = true;
+    }
+    ptr = ptr + 9;
+    if(ctr > 100){break}
+  }
+
+  ptr = 0;
 	ctr = 0;
 	while(str.indexOf(" to ", ptr) != -1){
   	ctr++;
@@ -14,12 +32,14 @@ function machineParse(str, machineMap){
     term1 = str.substring(spacebefore + 1, idx);
     term2 = str.substring(idx + 4, spaceafter);
     if(!machineMap[term1]){
-    machineMap[term1] = {};
+    	machineMap[term1] = {};
       machineMap[term1].points = [];
+      machineMap[term1].start = false;
     }
     if(!machineMap[term2]){
 	    machineMap[term2] = {};
       machineMap[term2].points = [];
+      machineMap[term2].start = false;
     }
     machineMap[term1].points.push({"state" : term2});
     label = str.indexOf(" on ",idx);
@@ -35,6 +55,7 @@ function machineParse(str, machineMap){
     ptr = spaceafter;
     if(ctr > 100){break}
   }
+
   return machineMap;
 }
 
@@ -45,13 +66,18 @@ function createHTML(machineMap){
   	state = {"id" : stateCount};
     stateCount++;
     state.name = propertyName;
+    state.start = machineMap[propertyName].start;
     state.points = machineMap[propertyName].points;
     stateMap[propertyName] = state;
 	}
+
   html = "";
   for(var propertyName in stateMap){
-  	state = stateMap[propertyName];
+  	state = stateMap[propertyName]; 
   	addon = "<div machine>" + state.name;
+    if(state.start == true){
+    	addon = "<div machine start>" + state.name;
+    }
       for(j = 0; j < state.points.length; j++){
         pos = stateMap[state.points[j].state].id;
         dir = "";
