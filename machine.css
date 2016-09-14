@@ -16,7 +16,7 @@ div[machines] > div[machine] {
  text-align:center;
  font-family:Times;
  font-size:14px;
-  padding-top:14px;
+  padding-top:7px;
   position:relative;
 }
 
@@ -65,12 +65,20 @@ div[left][down]{
 }
 
 
+div[left][down][top]{
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  top: -9vw !important;
+  left:-8.2vw !important;
+}
+
+
 div[machines] > div[machine] > div[right]{
   width: 16vw;
   height: 1vw;
   position:absolute;
-  left:7vw;
-  top:3vw;
+  right:7vw;
+  top:3.4vw;
   text-align:center;
 }
 
@@ -83,8 +91,15 @@ div[right]::before {
   width:100%;
   position:absolute;
   left:0px;
-  bottom:0px;
+  bottom:-4px;
   content: " ";
   height:10px;
 }
 
+div[left][diag][up]{
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: -12vw !important;
+  width: 25vw !important;
+  left:.6vw !important;
+}

@@ -1,19 +1,18 @@
-var input = "C to B labelled T and Y to B labelled X";
+
+var input = "C to B on 1 and Y to B on 1 and B to C on 0 and K to C on 0 and C to K on 1 and K to B on 0 ";
 
 function machineParse(str, machineMap){
 	ptr = 0;
 	ctr = 0;
 	while(str.indexOf(" to ", ptr) != -1){
-
   	ctr++;
   	idx = str.indexOf(" to ", ptr);
     spacebefore = str.lastIndexOf(" ", idx-1);
-    if(spacebefore == -1){spacebefore = 0;}
+    if(spacebefore == -1){spacebefore = -1;}
     spaceafter = str.indexOf(" ", idx + 4);
     if(spaceafter == -1){spaceafter = str.length};
-    term1 = str.substring(spacebefore, idx);
+    term1 = str.substring(spacebefore + 1, idx);
     term2 = str.substring(idx + 4, spaceafter);
-
     if(!machineMap[term1]){
     machineMap[term1] = {};
       machineMap[term1].points = [];
@@ -23,20 +22,19 @@ function machineParse(str, machineMap){
       machineMap[term2].points = [];
     }
     machineMap[term1].points.push({"state" : term2});
-    label = str.indexOf(" labelled ");
+    label = str.indexOf(" on ",idx);
     check = str.indexOf(" to ", spaceafter);
+    
     if(check == -1){check = str.length;}
 		if(label != -1 && label < check){
-    	spcafter = str.indexOf(" ", label + 10);
+    	spcafter = str.indexOf(" ", label + 4);
       if(spcafter == -1){spcafter = str.length};
-      lbl = str.substring(label + 10, spcafter);
+      lbl = str.substring(label + 4, spcafter);
       machineMap[term1].points[machineMap[term1].points.length - 1].label = lbl;
     }
     ptr = spaceafter;
     if(ctr > 100){break}
   }
-    	$("#testcase").html(JSON.stringify(machineMap));
-
   return machineMap;
 }
 
@@ -50,9 +48,7 @@ function createHTML(machineMap){
     state.points = machineMap[propertyName].points;
     stateMap[propertyName] = state;
 	}
-
   html = "";
-
   for(var propertyName in stateMap){
   	state = stateMap[propertyName];
   	addon = "<div machine>" + state.name;
@@ -65,6 +61,15 @@ function createHTML(machineMap){
         if(pos - state.id == -1){
 					dir = "right";
         }
+        if(pos - state.id == 3){
+					dir = "left down";
+        }
+				if(pos - state.id == -3){
+					dir = "left down top";
+        }
+        if(pos - state.id == -2 && pos % 3 != 0){
+					dir = "left diag up";
+        }
         if(state.points[j].label){
           addon = addon + "<div "+dir+">" + state.points[j].label + "</div>";
         } else {
@@ -73,7 +78,7 @@ function createHTML(machineMap){
       }
       html = html + addon + "</div>";
   }
-  $("#testcase").html(html);
+  $("#testcase").html($("#testcase").html() + html);
 }
 
 mMap = {};
