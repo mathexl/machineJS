@@ -1,29 +1,33 @@
 div[machines] {
-	width: 90%;
-	margin-left: 5%;
-	margin-right:5%;
-	height: 200px;
+ width: 90%;
+ margin-left: 5%;
+ margin-right:5%;
+ height: 200px;
 }
 
 div[machines] > div[machine] {
-	width: 6vw;
-	height: 6vw;
-	border-radius:100%;
-	margin: 9vw;
-	border: 1px black solid;
-	box-sizing:border-box;
-	float:left;
-	text-align:center;
-	font-family:Times;
-	font-size:14px;
+ width: 6vw;
+ height: 6vw;
+ border-radius:100%;
+ margin: 9vw;
+ border: 1px black solid;
+ box-sizing:border-box;
+ float:left;
+ text-align:center;
+ font-family:Times;
+ font-size:14px;
   padding-top:14px;
   position:relative;
 }
 
 
+div[machines] > div[machine][end] {
+  border-width:2px !important;
+}
+
 div[machines] > div[machine] > div[left]{
   width: 16vw;
-	height: 1vw;
+  height: 1vw;
   position:absolute;
   left:6.6vw;
   top:0vw;
@@ -31,10 +35,10 @@ div[machines] > div[machine] > div[left]{
 }
 
 div[left]::before {
-  	-webkit-transform: skew(20deg);
+  -webkit-transform: skew(20deg);
   -moz-transform: skew(20deg);
   -o-transform: skew(20deg);
-    border-bottom: 1px black solid;
+  border-bottom: 1px black solid;
   border-right:1px black solid;
   width:100%;
   position:absolute;
@@ -49,7 +53,7 @@ div[left][diag]{
   transform: rotate(45deg);
   top: 12vw !important;
   width: 25vw !important;
-    left:3.6vw !important;
+  left:3.6vw !important;
 }
 
 
@@ -57,5 +61,30 @@ div[left][down]{
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
   top: 14vw !important;
-    left:-3.2vw !important;
+  left:-3.2vw !important;
 }
+
+
+div[machines] > div[machine] > div[right]{
+  width: 16vw;
+  height: 1vw;
+  position:absolute;
+  left:7vw;
+  top:3vw;
+  text-align:center;
+}
+
+div[right]::before {
+  -webkit-transform: skew(20deg);
+  -moz-transform: skew(20deg);
+  -o-transform: skew(20deg);
+  border-top: 1px black solid;
+  border-left:1px black solid;
+  width:100%;
+  position:absolute;
+  left:0px;
+  bottom:0px;
+  content: " ";
+  height:10px;
+}
+
