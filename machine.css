@@ -6,14 +6,67 @@ div[machines] {
 }
 
 div[machines] > div[machine] {
-	width: 5vw;
-	height: 5vw;
+	width: 6vw;
+	height: 6vw;
 	border-radius:100%;
-	margin: 10vw;
+	margin: 9vw;
 	border: 1px black solid;
 	box-sizing:border-box;
 	float:left;
 	text-align:center;
 	font-family:Times;
 	font-size:14px;
+  padding-top:14px;
 }
+
+div[machines] > div[machine] > div[left]{
+  width: 16vw;
+	height: 1vw;
+  position:absolute;
+  left:6.6vw;
+  top:0vw;
+  text-align:center;
+}
+
+div[left]::before {
+  	-webkit-transform: skew(20deg);
+  -moz-transform: skew(20deg);
+  -o-transform: skew(20deg);
+    border-bottom: 1px black solid;
+  border-right:1px black solid;
+  width:100%;
+  position:absolute;
+  left:0px;
+  bottom:-9px;
+  content: " ";
+  height:10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
