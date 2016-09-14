@@ -1,0 +1,19 @@
+div[machines] {
+	width: 90%;
+	margin-left: 5%;
+	margin-right:5%;
+	height: 200px;
+}
+
+div[machines] > div[machine] {
+	width: 5vw;
+	height: 5vw;
+	border-radius:100%;
+	margin: 10vw;
+	border: 1px black solid;
+	box-sizing:border-box;
+	float:left;
+	text-align:center;
+	font-family:Times;
+	font-size:14px;
+}
