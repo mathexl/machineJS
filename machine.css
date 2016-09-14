@@ -17,7 +17,9 @@ div[machines] > div[machine] {
 	font-family:Times;
 	font-size:14px;
   padding-top:14px;
+  position:relative;
 }
+
 
 div[machines] > div[machine] > div[left]{
   width: 16vw;
@@ -42,31 +44,18 @@ div[left]::before {
   height:10px;
 }
 
+div[left][diag]{
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 12vw !important;
+  width: 25vw !important;
+    left:3.6vw !important;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+div[left][down]{
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  top: 14vw !important;
+    left:-3.2vw !important;
+}
