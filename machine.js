@@ -1,6 +1,8 @@
 function machineParse(str, machineMap){
 	regex = new RegExp(",","ig");
   str = str.replace(regex, " ");
+	regex = new RegExp("([A-Za-z0-9]*) to itself", "ig");
+	str = str.replace(regex, "$1 to $1");
 	ptr = 0;
 	ctr = 0;
   while(str.indexOf("start at ",ptr) != -1){
