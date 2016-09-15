@@ -15,7 +15,7 @@ mac = new machine(input, "#testcase");
 
 The first input is the string to convert, and latter input is the name of the element to insert the computed FSM into.  
 
-**Current commands:**
+**Current commands:**<br>
 `start at` : indicates state is the origin point.<br>
 `end at` : indicates state is the end point.<br>
 `a to b` : indicates an arrow drawn from state a to b.  States will be inserted as declared here. <br>
