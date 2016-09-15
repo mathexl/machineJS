@@ -34,7 +34,7 @@ div[machines] > div[machine] > div[left]{
   width: 16vw;
   height: 1vw;
   position:absolute;
-  left:6.6vw;
+  left:6.1vw;
   top:-0.2vw;
   text-align:center;
 }
@@ -110,7 +110,7 @@ div[machines] > div[machine] > div[right]{
   width: 16vw;
   height: 1vw;
   position:absolute;
-  right:7vw;
+  right:6vw;
   top:3.4vw;
   text-align:center;
 }

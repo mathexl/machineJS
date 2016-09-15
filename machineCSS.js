@@ -1,8 +1,6 @@
-
-
-var input = "start at C and C to B on 1 and B to C on 0 and B to Y on X and Y to B on 1 and K to C on 0 and C to K on 1 and K to B on 0 and K to Y on 1 ";
-
 function machineParse(str, machineMap){
+	regex = new RegExp(",","ig");
+  str = str.replace(regex, " ");
 	ptr = 0;
 	ctr = 0;
   while(str.indexOf("start at ",ptr) != -1){
@@ -22,9 +20,6 @@ function machineParse(str, machineMap){
     ptr = ptr + 9;
     if(ctr > 100){break}
   }
-  
-
-
   ptr = 0;
 	ctr = 0;
 	while(str.indexOf(" to ", ptr) != -1){
@@ -86,7 +81,7 @@ function machineParse(str, machineMap){
   return machineMap;
 }
 
-function createHTML(machineMap){
+function createHTML(machineMap, template){
 	stateMap = {};
   stateCount = 0;
   for(var propertyName in machineMap) {
@@ -115,15 +110,12 @@ function createHTML(machineMap){
         if(pos - state.id == 1 ){
 					dir = "left";
         }
- 
         if(pos - state.id == -1){
 					dir = "right";
-        }
-        
+        }        
         if(pos - state.id == -1 && pos % 3 == 2){
 					dir = "diag left long up";
         }
-
         if(pos - state.id == 3){
 					dir = "left down";
         }
@@ -141,9 +133,15 @@ function createHTML(machineMap){
       }
       html = html + addon + "</div>";
   }
-  $("#testcase").html($("#testcase").html() + html);
+  $(template).html($(template).html() + html);
 }
 
-mMap = {};
-mMap = machineParse(input, mMap);
-createHTML(mMap);
+var machine = function(str, template){
+	mMap = {};
+  mMap = machineParse(str, mMap);
+  createHTML(mMap, template);
+}
+
+var input = "start at C, C to B on 1, B to C on 0, B to Y on X, Y to B on 1, K to C on 0, C to K on 1, K to B on 0, K to Y on 1, end at Y ";
+
+mac = new machine(input, "#testcase");
