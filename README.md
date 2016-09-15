@@ -1,5 +1,7 @@
 # machineJS
 
+For COMS 3261 @ Columbia.  Not production ready as of now. 
+
 An "English" flavored psuedo-language to take a description of a finite state machine and turn it into a native HTML/CSS web display.  The groundwork of this application is created but all the possible direction vectors need to be inputted as well as the modulo exceptions.  Ex:
 
 *"start at C, C to B on 1, B to C on 0, B to Y on X, Y to B on 1, K to C on 0, C to K on 1, K to B on 0, K to Y on 1, end at Y"*
