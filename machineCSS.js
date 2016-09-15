@@ -1,6 +1,6 @@
 
 
-var input = "start at C and C to B on 1 and Y to B on 1 and B to C on 0 and K to C on 0 and C to K on 1 and K to B on 0 ";
+var input = "start at C and C to B on 1 and B to C on 0 and B to Y on X and Y to B on 1 and K to C on 0 and C to K on 1 and K to B on 0 and K to Y on 1 ";
 
 function machineParse(str, machineMap){
 	ptr = 0;
@@ -15,10 +15,15 @@ function machineParse(str, machineMap){
     	machineMap[val] = {};
       machineMap[val].points = [];
       machineMap[val].start = true;
+      machineMap[val].end = false;
+    } else {
+    	machineMap[val].start = true;
     }
     ptr = ptr + 9;
     if(ctr > 100){break}
   }
+  
+
 
   ptr = 0;
 	ctr = 0;
@@ -35,11 +40,13 @@ function machineParse(str, machineMap){
     	machineMap[term1] = {};
       machineMap[term1].points = [];
       machineMap[term1].start = false;
-    }
+      machineMap[term1].end = false;
+	}
     if(!machineMap[term2]){
 	    machineMap[term2] = {};
       machineMap[term2].points = [];
       machineMap[term2].start = false;
+      machineMap[term2].end = false;
     }
     machineMap[term1].points.push({"state" : term2});
     label = str.indexOf(" on ",idx);
@@ -55,6 +62,26 @@ function machineParse(str, machineMap){
     ptr = spaceafter;
     if(ctr > 100){break}
   }
+  
+    ptr = 0;
+	ctr = 0;
+  while(str.indexOf("end at ",ptr) != -1){
+    ctr++;
+    ptr = str.indexOf("end at ");
+    spaceafter = str.indexOf(" ",ptr+7);
+    if(spaceafter == -1){spaceafter = str.length};
+    val = str.substring(ptr+7,spaceafter);
+    if(!machineMap[val]){
+    	machineMap[val] = {};
+      machineMap[val].points = [];
+      machineMap[val].start = false;
+      machineMap[val].end = true;
+    } else {
+    	machineMap[val].end = true;
+    }
+    ptr = ptr + 7;
+    if(ctr > 100){break}
+  }
 
   return machineMap;
 }
@@ -67,6 +94,7 @@ function createHTML(machineMap){
     stateCount++;
     state.name = propertyName;
     state.start = machineMap[propertyName].start;
+    state.end = machineMap[propertyName].end;
     state.points = machineMap[propertyName].points;
     stateMap[propertyName] = state;
 	}
@@ -78,15 +106,24 @@ function createHTML(machineMap){
     if(state.start == true){
     	addon = "<div machine start>" + state.name;
     }
+    if(state.end == true){
+    	addon = "<div machine end>" + state.name;
+    }
       for(j = 0; j < state.points.length; j++){
         pos = stateMap[state.points[j].state].id;
         dir = "";
-        if(pos - state.id == 1){
+        if(pos - state.id == 1 ){
 					dir = "left";
         }
+ 
         if(pos - state.id == -1){
 					dir = "right";
         }
+        
+        if(pos - state.id == -1 && pos % 3 == 2){
+					dir = "diag left long up";
+        }
+
         if(pos - state.id == 3){
 					dir = "left down";
         }
@@ -97,7 +134,7 @@ function createHTML(machineMap){
 					dir = "left diag up";
         }
         if(state.points[j].label){
-          addon = addon + "<div "+dir+">" + state.points[j].label + "</div>";
+          addon = addon + "<div "+dir+"><span>" + state.points[j].label + "</span></div>";
         } else {
           addon = addon + "<div "+dir+"></div>";
         }

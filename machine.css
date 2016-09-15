@@ -35,14 +35,14 @@ div[machines] > div[machine] > div[left]{
   height: 1vw;
   position:absolute;
   left:6.6vw;
-  top:0vw;
+  top:-0.2vw;
   text-align:center;
 }
 
 div[left]::before {
-  -webkit-transform: skew(20deg);
-  -moz-transform: skew(20deg);
-  -o-transform: skew(20deg);
+  -webkit-transform: skew(40deg);
+  -moz-transform: skew(40deg);
+  -o-transform: skew(40deg);
   border-bottom: 1px black solid;
   border-right:1px black solid;
   width:100%;
@@ -61,12 +61,30 @@ div[left][diag]{
   left:3.6vw !important;
 }
 
+div[left][diag] span{
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  position:absolute;
+  width:100%;
+  left:-9%;
+  top:-7%;
+}
+
 
 div[left][down]{
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
   top: 14vw !important;
   left:-3.2vw !important;
+}
+
+div[left][down] span{
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  position:absolute;
+  width:100%;
+  left:-9%;
+  top:-7%;
 }
 
 
@@ -76,6 +94,16 @@ div[left][down][top]{
   top: -9vw !important;
   left:-8.2vw !important;
 }
+
+div[left][down][top] span{
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  position:absolute;
+  width:100%;
+  left:-9%;
+  top:-5% !important;
+}
+
 
 
 div[machines] > div[machine] > div[right]{
@@ -88,9 +116,9 @@ div[machines] > div[machine] > div[right]{
 }
 
 div[right]::before {
-  -webkit-transform: skew(20deg);
-  -moz-transform: skew(20deg);
-  -o-transform: skew(20deg);
+  -webkit-transform: skew(40deg);
+  -moz-transform: skew(40deg);
+  -o-transform: skew(40deg);
   border-top: 1px black solid;
   border-left:1px black solid;
   width:100%;
@@ -108,3 +136,33 @@ div[left][diag][up]{
   width: 25vw !important;
   left:.6vw !important;
 }
+
+div[left][diag][up] span{
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position:absolute;
+  width:100%;
+  left:-9%;
+  bottom:2%;
+}
+
+
+div[left][diag][up][long]{
+  -webkit-transform: rotate(-23deg);
+  transform: rotate(-23deg);
+  top: -11vw !important;
+  width: 45vw !important;
+  left:2.6vw !important;
+}
+
+div[left][diag][up][long] span{
+  -webkit-transform: rotate(23deg);
+  transform: rotate(23deg);
+  position:absolute;
+  width:100%;
+  left:-9%;
+  top:-7%;
+}
+
+
+
