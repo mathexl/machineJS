@@ -97,33 +97,33 @@ function createHTML(machineMap, template){
   html = "";
   for(var propertyName in stateMap){
   	state = stateMap[propertyName]; 
-  	addon = "<div machine>" + state.name;
+  	addon = "<div state>" + state.name;
     if(state.start == true){
-    	addon = "<div machine start>" + state.name;
+    	addon = "<div state start>" + state.name;
     }
     if(state.end == true){
-    	addon = "<div machine end>" + state.name;
+    	addon = "<div state end>" + state.name;
     }
       for(j = 0; j < state.points.length; j++){
         pos = stateMap[state.points[j].state].id;
         dir = "";
         if(pos - state.id == 1 ){
-					dir = "left";
+					dir = "default";
         }
         if(pos - state.id == -1){
 					dir = "right";
         }        
         if(pos - state.id == -1 && pos % 3 == 2){
-					dir = "diag left long up";
+					dir = "diag default long up";
         }
         if(pos - state.id == 3){
-					dir = "left down";
+					dir = "default down";
         }
 				if(pos - state.id == -3){
-					dir = "left down top";
+					dir = "default down top";
         }
         if(pos - state.id == -2 && pos % 3 != 0){
-					dir = "left diag up";
+					dir = "default diag up";
         }
         if(state.points[j].label){
           addon = addon + "<div "+dir+"><span>" + state.points[j].label + "</span></div>";

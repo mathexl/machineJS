@@ -5,7 +5,7 @@ div[machines] {
  height: 200px;
 }
 
-div[machines] > div[machine] {
+div[machines] > div[state] {
  width: 6vw;
  height: 6vw;
  border-radius:100%;
@@ -21,16 +21,17 @@ div[machines] > div[machine] {
 }
 
 
-div[machines] > div[machine][end] {
+div[machines] > div[state][end] {
   border-width:2px !important;
+    border-color:red;
 }
 
-div[machines] > div[machine][start] {
+div[machines] > div[state][start] {
   border-width:2px !important;
   border-color:blue;
 }
 
-div[machines] > div[machine] > div[left]{
+div[machines] > div[state] > div[default]{
   width: 16vw;
   height: 1vw;
   position:absolute;
@@ -39,7 +40,7 @@ div[machines] > div[machine] > div[left]{
   text-align:center;
 }
 
-div[left]::before {
+div[default]::before {
   -webkit-transform: skew(40deg);
   -moz-transform: skew(40deg);
   -o-transform: skew(40deg);
@@ -53,7 +54,7 @@ div[left]::before {
   height:10px;
 }
 
-div[left][diag]{
+div[default][diag]{
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   top: 12vw !important;
@@ -61,7 +62,7 @@ div[left][diag]{
   left:3.6vw !important;
 }
 
-div[left][diag] span{
+div[default][diag] span{
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   position:absolute;
@@ -71,14 +72,14 @@ div[left][diag] span{
 }
 
 
-div[left][down]{
+div[default][down]{
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
   top: 14vw !important;
   left:-3.2vw !important;
 }
 
-div[left][down] span{
+div[default][down] span{
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
   position:absolute;
@@ -88,14 +89,14 @@ div[left][down] span{
 }
 
 
-div[left][down][top]{
+div[default][down][top]{
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
   top: -9vw !important;
   left:-8.2vw !important;
 }
 
-div[left][down][top] span{
+div[default][down][top] span{
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
   position:absolute;
@@ -106,7 +107,7 @@ div[left][down][top] span{
 
 
 
-div[machines] > div[machine] > div[right]{
+div[machines] > div[state] > div[right]{
   width: 16vw;
   height: 1vw;
   position:absolute;
@@ -129,7 +130,7 @@ div[right]::before {
   height:10px;
 }
 
-div[left][diag][up]{
+div[default][diag][up]{
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   top: -12vw !important;
@@ -137,7 +138,7 @@ div[left][diag][up]{
   left:.6vw !important;
 }
 
-div[left][diag][up] span{
+div[default][diag][up] span{
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   position:absolute;
@@ -147,7 +148,7 @@ div[left][diag][up] span{
 }
 
 
-div[left][diag][up][long]{
+div[default][diag][up][long]{
   -webkit-transform: rotate(-23deg);
   transform: rotate(-23deg);
   top: -11vw !important;
@@ -155,7 +156,7 @@ div[left][diag][up][long]{
   left:2.6vw !important;
 }
 
-div[left][diag][up][long] span{
+div[default][diag][up][long] span{
   -webkit-transform: rotate(23deg);
   transform: rotate(23deg);
   position:absolute;
