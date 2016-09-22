@@ -1,6 +1,6 @@
 <link href="machine.css" rel="stylesheet" type="text/css">
-<script src="machine.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/core.js"></script>
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
 <div machines style="display:none;">
   <div state>T
     <div default><span>1</span></div>
@@ -35,6 +35,16 @@
   <div state>A</div>
   <div state>G</div>
 </div>
+<textarea id="input" style="border:1px #ddd solid; height:100px;resize:none;width:100%;"></textarea>
+<canvas id="myCanvas" width="800" height="800"></canvas>
+<script src="machine.js"></script>
 
-<div machines id="testcase">
-</div>
+<script>
+$(document).ready(function(){
+	$("#input").keyup(function(){
+		input = $(this).val();
+		console.log(input);
+		new machine(input, "#testcase");
+	});
+});
+</script>

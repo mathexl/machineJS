@@ -1,0 +1,68 @@
+<canvas id="myCanvas" width="700" height="700"></canvas>
+   <script>
+   function canvas_arrow(canvas, cir1, cir2, txt){
+        context = canvas.getContext('2d');
+        headlen = 10;   // length of head in pixels
+        fromx = cir1.X;
+        fromy = cir1.Y;
+        tox = cir2.X;
+        toy = cir2.Y;
+        txtadjust = 0;
+        if(cir1.X > cir2.X){
+          fromx = fromx - 35;
+          tox = tox + 35;
+          fromy = fromy - 8;
+          toy = toy - 8;
+        }
+        if(cir2.X > cir1.X){
+          fromx = fromx + 35;
+          tox = tox - 35;
+          fromy = fromy + 8;
+          toy = toy + 8;
+          txtadjust = 12;
+        }
+        angle = Math.atan2(toy-fromy,tox-fromx);
+        context.moveTo(fromx, fromy);
+        context.lineTo(tox, toy);
+        context.lineTo(tox-headlen*Math.cos(angle-Math.PI/6),toy-headlen*Math.sin(angle-Math.PI/6));
+        context.moveTo(tox, toy);
+        context.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6));
+        context.lineWidth = 2;
+        context.strokeStyle = '#888';
+        context.stroke();
+
+        ctx = canvas.getContext('2d');
+        ctx.font = "12px Lato";
+        ctx.fillStyle = "black";
+        ctx.fillText(txt,fromx -(fromx - tox)/2 - txtadjust,fromy - (fromy - toy)/2 - 3 + txtadjust);
+    }
+
+     var canvas = document.getElementById('myCanvas');
+
+     circle = function(canvas,X,Y, name){
+       context = canvas.getContext('2d');
+       context.beginPath();
+       context.arc(X, Y, 30, 0, 2 * Math.PI, false);
+       this.X = X;
+       this.Y = Y;
+       this.radius = 30;
+       context.fillStyle = 'transparent';
+       context.fill();
+       context.lineWidth = 3;
+       context.strokeStyle = '#444';
+       context.stroke();
+
+
+       ctx = canvas.getContext('2d');
+       ctx.font = "12px Lato";
+       ctx.fillStyle = "black";
+       ctx.fillText(name, this.X - 3, this.Y + 3);
+     }
+
+     circle1 = new circle(canvas, 100, 100, "A");
+     circle2 = new circle(canvas, 300, 100, "B");
+
+     canvas_arrow(canvas, circle1, circle2, "0");
+     canvas_arrow(canvas, circle2, circle1, "1");
+
+   </script>
