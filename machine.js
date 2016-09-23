@@ -54,9 +54,17 @@ function canvas_arrow(canvas, cir1, cir2, txt, color="#888"){
 				 }
 			 }
 
+			 if(Math.abs(toy - fromy) < 300){
+				 ydif = 270 * (toy - fromy)/800;
+			 } else {
+				 ydif = 10;
+			 }
 
-			 ydif = 270 * (toy - fromy)/800;
-			 xdif = 90 * (tox - fromx)/800;
+			 if(Math.abs(tox - fromx) < 300){
+				 xdif = 90 * (tox - fromx)/800;
+			 } else {
+				 xdif = 10;
+			 }
 			 if(fromx > tox && toy < fromy){ydif=ydif*-1};
 			 if(fromx < tox && toy > fromy){ydif=ydif*-1};
 			 if(ydif < 0){ydif = ydif + 8;}
@@ -261,11 +269,16 @@ function createHTML(machineMap, template, shuffle){
 			countY = countY + 200;
 		}
 		countX = (countX + 200);
-		if(stateCount % 2 == 0){
+		if(stateCount % 2 == 0 && stateCount % 4 != 0){
 			countY = (countY - 90);
 		} else {
 			countY = (countY + 90);
 		}
+
+		if(stateCount % 3 == 0 && stateCount > 0){
+			countX = countX + 30;
+		}
+
 		if(countX > 800){
 			countX = countX % 800;
 			countY = countY + 200;
