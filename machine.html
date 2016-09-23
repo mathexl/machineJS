@@ -1,41 +1,23 @@
 <link href="machine.css" rel="stylesheet" type="text/css">
 <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+<style>
+header{
+  width:100%;
+  height:80px;
+}
+header img{
+  height:60px;
+  margin-top:10px;
+}
+header a{cursor:pointer;float:right;margin:30px;color:rgba(158, 31, 99, 1);font-family:Lato;font-size:12px;margin-top:40px;}
+textarea{outline:none;border:1px #ddd solid; height:50px;resize:none;width:100%;font-size:18px;}
+</style>
+<header>
+  <img src="FSM.png">
+  <a class="shuffle">Shuffle</a>
+</header>
 
-<div machines style="display:none;">
-  <div state>T
-    <div default><span>1</span></div>
-    <div diag default><span>1</span></div>
-    <div down default><span>1</span></div>
-</div>
-  <div state>E
-      <div default><span>1</span></div>
-    <div diag default><span>1</span></div>
-    <div down default><span>1</span></div>
-        <div right><span>0</span></div>
-
-   </div>
-  <div state>X</div>
-  <div state end>C
-      <div default><span>1</span></div>
-    <div diag default><span>1</span></div>
-    <div down default><span>1</span></div>
-    <div diag default up><span>1</span></div>
-    <div diag default long up><span>1</span></div>
-
-
-  </div>
-  <div state>S
-      <div default><span>1</span></div>
-    <div diag default><span>1</span></div>
-    <div down default><span>1</span></div>
-    <div down top default><span>0</span></div>
-  </div>
-  <div state>G</div>
-  <div state>S</div>
-  <div state>A</div>
-  <div state>G</div>
-</div>
-<textarea id="input" style="border:1px #ddd solid; height:100px;resize:none;width:100%;"></textarea>
+<textarea id="input" ></textarea>
 <canvas id="myCanvas" width="800" height="800"></canvas>
 <script src="machine.js"></script>
 
@@ -46,5 +28,8 @@ $(document).ready(function(){
 		console.log(input);
 		new machine(input, "#testcase");
 	});
+  $(".shuffle").click(function(){
+    new machine(input, "#testcase", true);
+  })
 });
 </script>

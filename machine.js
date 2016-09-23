@@ -6,41 +6,84 @@ function canvas_arrow(canvas, cir1, cir2, txt, color="#888"){
 		 tox = cir2.X;
 		 toy = cir2.Y;
 		 txtadjust = 0;
+		 xdif = Math.abs(cir1.X - cir2.X);
+		 ydif = Math.abs(cir1.Y - cir2.Y);
+		 slope = ydif / xdif;
+		 angle = Math.atan(slope);
+		 console.log("angle: " + angle);
+		 yadjust = Math.sin(angle)*60;
+		 xadjust = Math.cos(angle)*60;
+		 ydif = 0;
+		 xdif = 0;
 		 if(cir1.X > cir2.X){
-			 fromx = fromx - 35;
-			 tox = tox + 35;
-			 fromy = fromy - 8;
-			 toy = toy - 8;
+			 fromx = fromx - xadjust;
+			 tox = tox + xadjust;
+			 fromy = fromy + 12;
+			 toy = toy + 12;
+			 txtadjust = 16;
+			 signX = 1;
+
 		 }
 		 else if(cir2.X > cir1.X){
-			 fromx = fromx + 35;
-			 tox = tox - 35;
-			 fromy = fromy + 8;
-			 toy = toy + 8;
-			 txtadjust = 12;
-		 } else {
+			 fromx = fromx + xadjust;
+			 tox = tox - xadjust;
+			 signX = -1;
+
+		 }
 			 if(cir1.Y > cir2.Y){
-				 fromy = fromy - 35;
-				 toy = toy + 35;
-				 fromx = fromx - 8;
-				 tox = tox - 8;
-				 txtadjust = 12;
+				 fromy = fromy - yadjust;
+				 toy = toy + yadjust;
+				 signY = 1;
+
 			 }
 			 if(cir2.Y > cir1.Y){
-				 fromy = fromy + 35;
-				 toy = toy - 35;
-				 fromx = fromx + 8;
-				 tox = tox + 8;
-				 txtadjust = -12;
+				 fromy = fromy + yadjust;
+				 toy = toy - yadjust;
+				 signY = -1;
 			 }
-	 	 }
+			 xdif = 0;
+			 if(cir2.X == cir1.X){
+				 if(cir2.Y > cir1.Y){
+					 	tox = tox + 4;
+						fromx = fromx + 4;
+						xdif = 4;
+				 } else {
+					 tox = tox - 4;
+					 fromx = fromx - 4;
+					 xdif = -9;
+				 }
+			 }
+
+
+			 ydif = 270 * (toy - fromy)/800;
+			 xdif = 90 * (tox - fromx)/800;
+			 if(fromx > tox && toy < fromy){ydif=ydif*-1};
+			 if(fromx < tox && toy > fromy){ydif=ydif*-1};
+			 if(ydif < 0){ydif = ydif + 8;}
+
+
+			 if(cir2.Y == cir1.Y){
+				 if(cir2.X > cir1.X){
+					 	toy = toy - 8;
+						fromy = fromy - 8;
+						ydif = -8;
+				 } else {
+					 toy = toy - 8;
+					 fromy = fromy - 8;
+					 ydif = 15;
+				 }
+			 }
+
+
 		 angle = Math.atan2(toy-fromy,tox-fromx);
 		 context.moveTo(fromx, fromy);
 
 		 if(cir1 == cir2){
 			 ctx.beginPath();
-			 ctx.arc(tox-35,toy+35,20,0*Math.PI,1.5*Math.PI);
+			 ctx.arc(tox-35.3,toy+35.3,20,0*Math.PI,1.5*Math.PI);
 			 ctx = canvas.getContext('2d');
+			 ctx.lineTo(tox-35.3-headlen,toy+35.3-headlen);
+			 ctx.moveTo(tox, toy);
 			 ctx.font = "12px Lato";
 			 ctx.fillStyle = "black";
 			 ctx.fillText(txt,fromx - 40, toy + 40);
@@ -53,7 +96,7 @@ function canvas_arrow(canvas, cir1, cir2, txt, color="#888"){
 			 ctx = canvas.getContext('2d');
 			 ctx.font = "12px Lato";
 			 ctx.fillStyle = "black";
-			 ctx.fillText(txt,fromx -(fromx - tox)/2 - txtadjust,fromy - (fromy - toy)/2 - 3 + txtadjust);
+			 ctx.fillText(txt,tox + (fromx - tox)/2 + xdif,toy + (fromy - toy)/2 + ydif);
 	 	 }
 
 
@@ -69,10 +112,10 @@ function canvas_arrow(canvas, cir1, cir2, txt, color="#888"){
 	circle = function(canvas,X,Y, name, color="black"){
 		context = canvas.getContext('2d');
 		context.beginPath();
-		context.arc(X, Y, 30, 0, 2 * Math.PI, false);
+		context.arc(X, Y, 50.3, 0, 2 * Math.PI, false);
 		this.X = X;
 		this.Y = Y;
-		this.radius = 30;
+		this.radius = 50.3;
 		context.fillStyle = 'transparent';
 		context.fill();
 		context.lineWidth = 3;
@@ -177,12 +220,25 @@ function machineParse(str, machineMap){
   return machineMap;
 }
 
-function createHTML(machineMap, template){
+function shufflearr(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+}
+
+function createHTML(machineMap, template, shuffle){
 	stateMap = {};
   stateCount = 0;
 	countX = 100;
-	countY = 50;
-  for(var propertyName in machineMap) {
+	countY = 70;
+	keys = Object.keys(machineMap);
+	if(shuffle == true){shufflearr(keys);}
+  for(i = 0; i < keys.length; i++) {
+		propertyName = keys[i];
   	state = {"id" : stateCount};
     stateCount++;
     state.name = propertyName;
@@ -200,16 +256,15 @@ function createHTML(machineMap, template){
     stateMap[propertyName] = state;
 		console.log(Object.keys(machineMap).length);
 		root = Math.ceil(Math.sqrt(Object.keys(machineMap).length));
-		console.log(root)
-		if(stateCount % root == 0){
+		if(stateCount % root == 0 && Object.keys(machineMap).length > 3){
 			countX = -100;
 			countY = countY + 200;
 		}
 		countX = (countX + 200);
 		if(stateCount % 2 == 0){
-			countY = (countY - 50);
+			countY = (countY - 90);
 		} else {
-			countY = (countY + 50);
+			countY = (countY + 90);
 		}
 		if(countX > 800){
 			countX = countX % 800;
@@ -235,6 +290,7 @@ function createHTML(machineMap, template){
     }
       for(j = 0; j < state.points.length; j++){
         goingto = stateMap[state.points[j].state];
+				if(!state.points[j].label){state.points[j].label = "";}
 				canvas_arrow(canvas, state.obj, goingto.obj, state.points[j].label);
 				pos = 0;
         dir = "";
@@ -267,12 +323,12 @@ function createHTML(machineMap, template){
   //$(template).html(html);
 }
 
-var machine = function(str, template){
+var machine = function(str, template, shuffle = false){
 	mMap = {};
   mMap = machineParse(str, mMap);
 	ctx = canvas.getContext('2d');
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-  createHTML(mMap, template);
+  createHTML(mMap, template, shuffle);
 }
 
 var input = "start at C, C to B on 1, B to C on 0, B to Y on X, Y to B on 1, K to C on 0, C to K on 1, K to B on 0, K to Y on 1, end at Y ";
