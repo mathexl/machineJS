@@ -36,18 +36,32 @@ function canvas_arrow(canvas, cir1, cir2, txt, color="#888"){
 	 	 }
 		 angle = Math.atan2(toy-fromy,tox-fromx);
 		 context.moveTo(fromx, fromy);
-		 context.lineTo(tox, toy);
-		 context.lineTo(tox-headlen*Math.cos(angle-Math.PI/6),toy-headlen*Math.sin(angle-Math.PI/6));
-		 context.moveTo(tox, toy);
-		 context.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6));
+
+		 if(cir1 == cir2){
+			 ctx.beginPath();
+			 ctx.arc(tox-35,toy+35,20,0*Math.PI,1.5*Math.PI);
+			 ctx = canvas.getContext('2d');
+			 ctx.font = "12px Lato";
+			 ctx.fillStyle = "black";
+			 ctx.fillText(txt,fromx - 40, toy + 40);
+		 }
+		 else {
+			 context.lineTo(tox, toy);
+			 context.lineTo(tox-headlen*Math.cos(angle-Math.PI/6),toy-headlen*Math.sin(angle-Math.PI/6));
+			 context.moveTo(tox, toy);
+			 context.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6));
+			 ctx = canvas.getContext('2d');
+			 ctx.font = "12px Lato";
+			 ctx.fillStyle = "black";
+			 ctx.fillText(txt,fromx -(fromx - tox)/2 - txtadjust,fromy - (fromy - toy)/2 - 3 + txtadjust);
+	 	 }
+
+
 		 context.lineWidth = 2;
 		 context.strokeStyle = color;
 		 context.stroke();
 
-		 ctx = canvas.getContext('2d');
-		 ctx.font = "12px Lato";
-		 ctx.fillStyle = "black";
-		 ctx.fillText(txt,fromx -(fromx - tox)/2 - txtadjust,fromy - (fromy - toy)/2 - 3 + txtadjust);
+
  }
 
 	var canvas = document.getElementById('myCanvas');
@@ -167,7 +181,7 @@ function createHTML(machineMap, template){
 	stateMap = {};
   stateCount = 0;
 	countX = 100;
-	countY = 100;
+	countY = 50;
   for(var propertyName in machineMap) {
   	state = {"id" : stateCount};
     stateCount++;
@@ -192,6 +206,11 @@ function createHTML(machineMap, template){
 			countY = countY + 200;
 		}
 		countX = (countX + 200);
+		if(stateCount % 2 == 0){
+			countY = (countY - 50);
+		} else {
+			countY = (countY + 50);
+		}
 		if(countX > 800){
 			countX = countX % 800;
 			countY = countY + 200;
